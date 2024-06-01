@@ -1,0 +1,64 @@
+/* Board.css */
+.board {
+    display: grid;
+    grid-template-columns: repeat(9, 1fr);
+    grid-gap: 1px;
+    max-width: 450px;
+    margin: 0 auto;
+    background: #000;
+}
+
+.row {
+    display: contents;
+}
+
+.cell {
+    background: #fff;
+    color: #333;
+    border: 1px solid #ddd;
+    font-size: 16px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 45px;
+    width: 45px;
+}
+
+.cell.fixed {
+    background-color: #e0e0e0;
+    color: #666;
+    font-weight: bold;
+}
+
+.cell input {
+    width: 100%;
+    height: 100%;
+    border: none;
+    text-align: center;
+    font-size: inherit;
+    color: inherit;
+    background: transparent;
+}
+
+.cell input:focus {
+    outline: none;
+    background-color: #cdf;
+}
+
+/* Estilos adicionais para separar os quadrantes 3x3 */
+.row:nth-child(3n) .cell {
+    border-bottom: 3px solid #000;
+}
+
+.row:nth-child(3n + 1) .cell {
+    border-top: 3px solid #000;
+}
+
+.cell:nth-child(3n) {
+    border-right: 3px solid #000;
+}
+
+.cell:nth-child(3n + 1) {
+    border-left: 3px solid #000;
+}
