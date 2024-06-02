@@ -5,12 +5,15 @@ import Board from './components/Board';
 import Login from './components/Login';
 import Register from './components/Register';
 import SudokuTitle from './components/SudokuTitle';
+import Timer from './components/Timer';
 import './assets/App.css';
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [showRegister, setShowRegister] = useState(false);
-  const [board, setBoard] = useState([]);
+  const [board, setBoard] = useState(null);
+  const [timerRunning, setTimerRunning] = useState(false);
+  const [resetCount, setResetCount] = useState(0);  // Use um contador para resets
 
   useEffect(() => {
     const verifyToken = async () => {
@@ -19,7 +22,6 @@ function App() {
         try {
           await api.get('verify-token');
           setIsAuthenticated(true);
-          fetchSudoku();
         } catch (error) {
           console.error('Token verification failed:', error);
           setIsAuthenticated(false);
@@ -31,7 +33,22 @@ function App() {
     verifyToken();
   }, []);
 
-  const fetchSudoku = async () => {
+  const handleLogin = (token) => {
+    Cookies.set('jwt', token, { expires: 1 });
+    setIsAuthenticated(true);
+    setShowRegister(false);
+  };
+
+  const handleLogout = () => {
+    Cookies.remove('jwt');
+    setIsAuthenticated(false);
+    setTimerRunning(false);
+    setBoard(null);
+  };
+
+  const handleReset = async () => {
+    setResetCount(prev => prev + 1);  // Incrementa o contador para garantir mudança de estado
+    setTimerRunning(true);
     try {
       const response = await api.get('sudoku');
       setBoard(response.data.puzzle);
@@ -40,24 +57,17 @@ function App() {
     }
   };
 
-  const handleLogin = () => {
-    setIsAuthenticated(true);
-    setShowRegister(false);
-    fetchSudoku();
+  const handleFinishGame = () => {
+    setTimerRunning(false);
   };
 
-  const handleLogout = () => {
-    Cookies.remove('jwt');
-    setIsAuthenticated(false);
-  };
-
-  const handleRegister = (userData) => {
-    console.log('User registered:', userData);
-    setShowRegister(false);
-  };
-
-  const handleReset = () => {
-    fetchSudoku();
+  const handleRegister = async (userData) => {
+    try {
+      await api.post('register', userData);
+      setShowRegister(false);
+    } catch (error) {
+      console.error('Error registering user:', error);
+    }
   };
 
   return (
@@ -65,11 +75,11 @@ function App() {
       <SudokuTitle />
       {isAuthenticated ? (
         <div className="game-layout">
-          <div className="board-container">
-          <Board initialBoard={board} />
-          </div>
+          {board && <Board initialBoard={board} />}
           <div className="navbar-vertical">
+            <Timer running={timerRunning} reset={resetCount} />
             <button onClick={handleReset}>Reiniciar</button>
+            <button onClick={handleFinishGame}>Finalizar Jogo</button>
             <button onClick={handleLogout}>Logout</button>
           </div>
         </div>
