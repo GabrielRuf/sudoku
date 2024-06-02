@@ -1,42 +1,48 @@
-/* src/assets/App.css */
 .App {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    min-height: 100vh;
-    background-color: #f0f2f5;
-    font-family: Arial, sans-serif;
-  }
-  
-  .sudoku-title {
-    font-size: 2.5rem;
-    color: #333;
-    text-align: center;
-    margin-bottom: 20px;
-  }
-  
-  .board-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .game-controls {
-    margin-top: 20px;
-  }
-  
-  button {
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 1rem;
-  }
-  
-  button:hover {
-    background-color: #0056b3;
-  }
-  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #f0f0f0;
+  font-family: Arial, sans-serif;
+}
+
+.game-layout {
+  display: flex;
+  align-items: start;
+  justify-content: center; /* Centraliza os elementos horizontalmente */
+}
+
+.board-container {
+  margin-right: 100px; /* Espaço entre o tabuleiro e a navbar */
+}
+
+.navbar-vertical {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Centraliza os botões verticalmente */
+  gap: 10px; /* Espaçamento entre os botões */
+}
+
+button {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #007BFF;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  width: 100px; /* Tamanho fixo para os botões */
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+.sudoku-title {
+  text-align: center;
+  font-size: 24px;
+  font-weight: bold;
+  position: absolute; /* Faz o título ficar na parte superior */
+  top: 20px;
+  width: 100%;
+}

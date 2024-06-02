@@ -23,7 +23,7 @@ function App() {
         } catch (error) {
           console.error('Token verification failed:', error);
           setIsAuthenticated(false);
-          Cookies.remove('jwt');  // Optional: clear the cookie if token is invalid
+          Cookies.remove('jwt');
         }
       }
     };
@@ -36,19 +36,23 @@ function App() {
       const response = await api.get('sudoku');
       setBoard(response.data.puzzle);
     } catch (error) {
-      console.error('Erro ao buscar o tabuleiro de Sudoku:', error);
+      console.error('Error fetching the Sudoku board:', error);
     }
   };
 
-  const handleLogin = (token) => {
-    Cookies.set('jwt', token, { expires: 1 });
+  const handleLogin = () => {
     setIsAuthenticated(true);
     setShowRegister(false);
     fetchSudoku();
   };
 
+  const handleLogout = () => {
+    Cookies.remove('jwt');
+    setIsAuthenticated(false);
+  };
+
   const handleRegister = (userData) => {
-    console.log('Dados do usuário registrado:', userData);
+    console.log('User registered:', userData);
     setShowRegister(false);
   };
 
@@ -58,12 +62,15 @@ function App() {
 
   return (
     <div className="App">
+      <SudokuTitle />
       {isAuthenticated ? (
-        <div className="board-container">
-          <SudokuTitle />
+        <div className="game-layout">
+          <div className="board-container">
           <Board initialBoard={board} />
-          <div className="game-controls">
+          </div>
+          <div className="navbar-vertical">
             <button onClick={handleReset}>Reiniciar</button>
+            <button onClick={handleLogout}>Logout</button>
           </div>
         </div>
       ) : showRegister ? (

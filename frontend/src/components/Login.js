@@ -18,11 +18,9 @@ function Login({ onLogin, onShowRegister }) {
         password
       });
       const { token } = response.data; 
-
-      Cookies.set('jwt', token, { expires: 1 }); // Expira em 1 dia
-
+      Cookies.set('jwt', token, { expires: 1 });
       console.log(token);
-      onLogin(token); // Chamada de callback para lidar com o estado de login no componente pai
+      onLogin(token);
     } catch (error) {
       alert('Credenciais inválidas');
       console.error('Erro de login:', error);
