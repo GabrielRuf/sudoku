@@ -1,38 +1,37 @@
 import React, { useState } from 'react';
+import api from './Api'; // Importe a instância configurada de Axios
 import '../assets/Login.css';
-import SudokuTitle from './SudokuTitle'; 
+import SudokuTitle from './SudokuTitle';
+import Cookies from 'js-cookie';
+
 
 function Login({ onLogin, onShowRegister }) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    if (username === 'admin' && password === 'password') {
-      const token = createToken({ username });
+    try {
+      // Usar a instância `api` configurada com Axios
+      const response = await api.post('/auth/login', {
+        username,
+        password
+      });
+      const { token } = response.data; 
+
+      Cookies.set('jwt', token, { expires: 1 }); // Expira em 1 dia
+
       console.log(token);
-      onLogin(token);
-    } else {
+      onLogin(token); // Chamada de callback para lidar com o estado de login no componente pai
+    } catch (error) {
       alert('Credenciais inválidas');
-      onLogin(null);
+      console.error('Erro de login:', error);
     }
   };
 
-  function createToken(payload) {
-    const header = {
-      alg: "HS256",
-      typ: "JWT"
-    };
-    const encodedHeader = btoa(JSON.stringify(header));
-    const encodedPayload = btoa(JSON.stringify(payload));
-    const signature = "signature";
-
-    return `${encodedHeader}.${encodedPayload}.${signature}`;
-  }
-
   return (
     <div className="login-container">
-      <SudokuTitle /> {/* Adiciona o título aqui */}
+      <SudokuTitle />
       <form className="login-form" onSubmit={handleSubmit}>
         <label>
           Username:

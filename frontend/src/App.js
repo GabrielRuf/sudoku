@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import Cookies from 'js-cookie';
+import api from './components/Api';
 import Board from './components/Board';
 import Login from './components/Login';
 import Register from './components/Register';
@@ -12,12 +13,27 @@ function App() {
   const [board, setBoard] = useState([]);
 
   useEffect(() => {
-    fetchSudoku();
+    const verifyToken = async () => {
+      const token = Cookies.get('jwt');
+      if (token) {
+        try {
+          await api.get('verify-token');
+          setIsAuthenticated(true);
+          fetchSudoku();
+        } catch (error) {
+          console.error('Token verification failed:', error);
+          setIsAuthenticated(false);
+          Cookies.remove('jwt');  // Optional: clear the cookie if token is invalid
+        }
+      }
+    };
+
+    verifyToken();
   }, []);
 
   const fetchSudoku = async () => {
     try {
-      const response = await axios.get('http://localhost:3001/sudoku');
+      const response = await api.get('sudoku');
       setBoard(response.data.puzzle);
     } catch (error) {
       console.error('Erro ao buscar o tabuleiro de Sudoku:', error);
@@ -25,8 +41,10 @@ function App() {
   };
 
   const handleLogin = (token) => {
+    Cookies.set('jwt', token, { expires: 1 });
     setIsAuthenticated(true);
     setShowRegister(false);
+    fetchSudoku();
   };
 
   const handleRegister = (userData) => {
@@ -35,7 +53,7 @@ function App() {
   };
 
   const handleReset = () => {
-    fetchSudoku(); // Obtém um novo tabuleiro de Sudoku da API
+    fetchSudoku();
   };
 
   return (
