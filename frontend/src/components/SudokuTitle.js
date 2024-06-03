@@ -1,6 +1,5 @@
-// src/components/SudokuTitle.js
 import React from 'react';
-import '../assets/SudokuTitle.css'; // Opcional: se você quiser adicionar estilos específicos
+import '../assets/SudokuTitle.css';
 
 function SudokuTitle() {
   return (

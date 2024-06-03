@@ -46,7 +46,6 @@
     background-color: #cdf;
 }
 
-/* Estilos adicionais para separar os quadrantes 3x3 */
 .row:nth-child(3n) .cell {
     border-bottom: 3px solid #000;
 }

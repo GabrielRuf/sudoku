@@ -1,70 +1,130 @@
-# Getting Started with Create React App
+# Sudoku Game Frontend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Este é o frontend de um jogo de Sudoku desenvolvido com React. O aplicativo permite aos usuários fazer login, registrar-se, jogar Sudoku, reiniciar o jogo e finalizar o jogo. Ele também possui um cronômetro para monitorar o tempo gasto em cada jogo.
 
-## Available Scripts
+## Funcionalidades
 
-In the project directory, you can run:
+- **Autenticação de Usuário:** Permite que os usuários façam login e se registrem.
+- **Iniciar Jogo:** Reinicia ou inicia o tabuleiro de Sudoku com um novo quebra-cabeça.
+- **Finalizar Jogo:** Finaliza o jogo atual e verifica se a solução está correta.
+- **Cronômetro:** Monitora o tempo gasto em cada jogo.
+- **Persistência de Sessão:** Usa cookies para manter os usuários autenticados.
 
-### `npm start`
+## Estrutura do Projeto
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+```
+sudoku-game/
+│
+├── public/
+│   ├── index.html
+│   └── ...
+│
+├── src/
+│   ├── assets/
+│   │   ├── App.css
+│   │   └── ...
+│   ├── components/
+│   │   ├── Api.js
+│   │   ├── Board.js
+│   │   ├── Cell.js
+│   │   ├── GameControls.js
+│   │   ├── Login.js
+│   │   ├── Register.js
+│   │   ├── SudokuTitle.js
+│   │   └── Timer.js
+│   ├── utils/
+│   │   └── sudoku.js
+│   ├── App.js
+│   ├── index.js
+│   └── ...
+│
+├── .gitignore
+├── package.json
+├── README.md
+└── ...
+```
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Pré-requisitos
 
-### `npm test`
+Certifique-se de ter o Node.js e o npm instalados na sua máquina.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Instalação
 
-### `npm run build`
+1. Clone o repositório:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```bash
+git clone https://github.com/GabrielRuf/sudoku.git
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+2. Navegue até o diretório do projeto:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```bash
+cd frontend
+```
 
-### `npm run eject`
+3. Instale as dependências:
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+```bash
+npm install
+```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Configuração
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+1. Certifique-se de que o backend do jogo de Sudoku esteja em execução.
+2. Atualize a URL base da API no arquivo `Api.js`, se necessário.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## Executando o Projeto
 
-## Learn More
+Para iniciar o servidor de desenvolvimento, execute:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+```bash
+npm start
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+O aplicativo estará disponível em `http://localhost:3000`.
 
-### Code Splitting
+## Componentes Principais
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+### App.js
 
-### Analyzing the Bundle Size
+O componente principal que gerencia o estado da aplicação, incluindo autenticação, cronômetro e tabuleiro de Sudoku.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+### Board.js
 
-### Making a Progressive Web App
+Renderiza o tabuleiro de Sudoku e lida com a entrada do usuário.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+### Cell.js
 
-### Advanced Configuration
+Representa uma célula individual no tabuleiro de Sudoku.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+### GameControls.js
 
-### Deployment
+Contém os botões de controle do jogo, como "Iniciar" e "Logout".
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+### Login.js
 
-### `npm run build` fails to minify
+Formulário de login para autenticação do usuário.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+### Register.js
+
+Formulário de registro para criação de novos usuários.
+
+### Timer.js
+
+Cronômetro que monitora o tempo gasto em cada jogo.
+
+### SudokuTitle.js
+
+Componente de título do jogo.
+
+### Api.js
+
+Configuração do Axios para comunicação com o backend.
+
+### sudoku.js
+
+Utilitários para validação de solução e conversão de arrays.
+
+## Contribuição
+
+Sinta-se à vontade para contribuir com este projeto. Você pode abrir issues e pull requests no GitHub.

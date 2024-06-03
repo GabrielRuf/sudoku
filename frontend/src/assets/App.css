@@ -10,18 +10,18 @@
 .game-layout {
   display: flex;
   align-items: start;
-  justify-content: center; /* Centraliza os elementos horizontalmente */
+  justify-content: center; 
 }
 
 .board-container {
-  margin-right: 100px; /* Espaço entre o tabuleiro e a navbar */
+  margin-right: 100px; 
 }
 
 .navbar-vertical {
   display: flex;
   flex-direction: column;
-  align-items: center; /* Centraliza os botões verticalmente */
-  gap: 10px; /* Espaçamento entre os botões */
+  align-items: center; 
+  gap: 10px;
   margin-left: 100px;
 }
 
@@ -32,7 +32,7 @@ button {
   color: white;
   border: none;
   border-radius: 5px;
-  width: 100px; /* Tamanho fixo para os botões */
+  width: 100px; 
 }
 
 button:hover {
@@ -43,7 +43,7 @@ button:hover {
   text-align: center;
   font-size: 24px;
   font-weight: bold;
-  position: absolute; /* Faz o título ficar na parte superior */
+  position: absolute; 
   top: 20px;
   width: 100%;
 }

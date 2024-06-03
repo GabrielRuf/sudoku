@@ -1,32 +1,19 @@
-
-export function createEmptyBoard() {
-  const board = new Array(9).fill(null).map(() => new Array(9).fill(""));
-  return board;
-}
-
-// Função que cria um tabuleiro inicial (pode ser ajustada para gerar aleatoriamente)
-export function createInitialBoard() {
-  const board = new Array(9).fill(null).map(() => new Array(9).fill(""));
-  // Aqui você pode adicionar lógica para preencher algumas células se desejar
-  return board;
-}
-
 export function isValidMove(board, row, col, value) {
-  // Verificar linha
+  // Verifica linha
   for (let i = 0; i < 9; i++) {
     if (board[row][i].value === value && i !== col) {
       return false;
     }
   }
 
-  // Verificar coluna
+  // Verifica coluna
   for (let i = 0; i < 9; i++) {
     if (board[i][col].value === value && i !== row) {
       return false;
     }
   }
 
-  // Verificar quadrante 3x3
+  // Verifica quadrante 3x3
   const startRow = Math.floor(row / 3) * 3;
   const startCol = Math.floor(col / 3) * 3;
   for (let i = 0; i < 3; i++) {
@@ -40,3 +27,24 @@ export function isValidMove(board, row, col, value) {
 
   return true;
 }
+
+export const convertSolutionToMatrix = (solution) => {
+  const solutionMatrix = [];
+  for (let i = 0; i < 9; i++) {
+    solutionMatrix.push(solution.slice(i * 9, i * 9 + 9));
+  }
+  return solutionMatrix;
+};
+
+export const validateSolution = (board, solution) => {
+  const solutionMatrix = convertSolutionToMatrix(solution);
+
+  for (let i = 0; i < 9; i++) {
+    for (let j = 0; j < 9; j++) {
+      if (board[i][j] !== '' && parseInt(board[i][j], 10) !== solutionMatrix[i][j]) {
+        return false;
+      }
+    }
+  }
+  return true;
+};

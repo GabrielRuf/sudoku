@@ -2,7 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const { generateSudoku } = require('./sudokuGenerator');
 const verifyToken = require('./verifyToken');
-const authRoutes = require('./authRoutes');  // Importe as rotas de autenticação
+const authRoutes = require('./authRoutes');
 
 const app = express();
 const port = process.env.PORT || 3001;
@@ -14,7 +14,6 @@ app.use(cors({
 app.use(cors());
 app.use(express.json());
 
-// Usar as rotas de autenticação
 app.use('/auth', authRoutes);
 
 app.get('/sudoku', verifyToken, (req, res) => {

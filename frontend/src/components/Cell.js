@@ -9,7 +9,7 @@ function Cell({ value, onChange, onDoubleClick, isFixed }) {
       onChange={onChange}
       onDoubleClick={onDoubleClick}
       maxLength="1"
-      disabled={isFixed} // Desabilitar input para células fixas
+      disabled={isFixed}
     />
   );
 }

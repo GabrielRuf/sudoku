@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import api from './Api';  // Ajuste o caminho de acordo com a localização do seu Api.js
+import api from './Api';
 import '../assets/Login.css';
-import SudokuTitle from './SudokuTitle';  // Importa o componente SudokuTitle
+import SudokuTitle from './SudokuTitle'; 
 
 function Register({ onRegister }) {
   const [username, setUsername] = useState('');
@@ -11,7 +11,7 @@ function Register({ onRegister }) {
     event.preventDefault();
 
     try {
-      // Chamada para a API de registro usando a instância configurada de Axios
+      
       const response = await api.post('auth/register', {
         username,
         password
@@ -19,19 +19,16 @@ function Register({ onRegister }) {
 
       if (response.status === 201) {
         alert('Usuário registrado com sucesso!');
-        onRegister(true); // Notifica o componente pai sobre o registro bem-sucedido
+        onRegister(true); 
         setUsername('');
         setPassword('');
       }
     } catch (error) {
       if (error.response) {
-        // A resposta foi recebida mas indicou um erro
         alert('Erro no registro: ' + error.response.data);
       } else if (error.request) {
-        // A requisição foi feita mas não houve resposta
         alert('Erro no registro: Nenhuma resposta do servidor');
       } else {
-        // Algo errado na requisição
         alert('Erro no registro: ' + error.message);
       }
     }

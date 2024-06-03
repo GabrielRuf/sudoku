@@ -7,13 +7,15 @@ import Register from './components/Register';
 import SudokuTitle from './components/SudokuTitle';
 import Timer from './components/Timer';
 import './assets/App.css';
+import { validateSolution } from './utils/sudoku'
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [showRegister, setShowRegister] = useState(false);
   const [board, setBoard] = useState(null);
+  const [solution, setSolution] = useState(null);
   const [timerRunning, setTimerRunning] = useState(false);
-  const [resetCount, setResetCount] = useState(0);  // Use um contador para resets
+  const [resetCount, setResetCount] = useState(0);
 
   useEffect(() => {
     const verifyToken = async () => {
@@ -44,14 +46,16 @@ function App() {
     setIsAuthenticated(false);
     setTimerRunning(false);
     setBoard(null);
+    setSolution(null);
   };
 
   const handleReset = async () => {
-    setResetCount(prev => prev + 1);  // Incrementa o contador para garantir mudança de estado
+    setResetCount(prev => prev + 1);
     setTimerRunning(true);
     try {
       const response = await api.get('sudoku');
       setBoard(response.data.puzzle);
+      setSolution(response.data.solution);
     } catch (error) {
       console.error('Error fetching the Sudoku board:', error);
     }
@@ -59,6 +63,11 @@ function App() {
 
   const handleFinishGame = () => {
     setTimerRunning(false);
+    if (board && validateSolution(board, solution)) {
+      alert("Parabéns! Você solucionou o Sudoku corretamente.");
+    } else {
+      alert("A solução está incorreta. Por favor, tente novamente.");
+    }
   };
 
   const handleRegister = async (userData) => {
@@ -78,7 +87,7 @@ function App() {
           {board && <Board initialBoard={board} />}
           <div className="navbar-vertical">
             <Timer running={timerRunning} reset={resetCount} />
-            <button onClick={handleReset}>Reiniciar</button>
+            <button onClick={handleReset}>Iniciar</button>
             <button onClick={handleFinishGame}>Finalizar Jogo</button>
             <button onClick={handleLogout}>Logout</button>
           </div>

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import api from './Api'; // Importe a instância configurada de Axios
+import api from './Api';
 import '../assets/Login.css';
 import SudokuTitle from './SudokuTitle';
 import Cookies from 'js-cookie';
@@ -12,7 +12,7 @@ function Login({ onLogin, onShowRegister }) {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      // Usar a instância `api` configurada com Axios
+      
       const response = await api.post('/auth/login', {
         username,
         password

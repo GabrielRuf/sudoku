@@ -4,7 +4,7 @@ const Timer = ({ running, reset }) => {
   const [seconds, setSeconds] = useState(0);
 
   useEffect(() => {
-    setSeconds(0); // Reseta os segundos sempre que reset muda
+    setSeconds(0);
   }, [reset]);
 
   useEffect(() => {

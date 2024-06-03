@@ -9,7 +9,7 @@ function Board({ initialBoard }) {
     const boardWithFixed = initialBoard.map(row =>
       row.map(value => ({
         value: value,
-        isFixed: value !== '' // Marcar células com valor inicial como fixas
+        isFixed: value !== ''
       }))
     );
     setBoard(boardWithFixed);
@@ -27,7 +27,7 @@ function Board({ initialBoard }) {
   const handleDoubleClick = (row, col) => {
     const newBoard = [...board];
     if (!newBoard[row][col].isFixed) {
-      newBoard[row][col] = { ...newBoard[row][col], value: "" }; // Limpa a célula no duplo clique
+      newBoard[row][col] = { ...newBoard[row][col], value: "" }; 
       setBoard(newBoard);
     }
   };
